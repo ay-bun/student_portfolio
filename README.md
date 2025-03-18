@@ -9,11 +9,6 @@
 - The API and UI are designed to serve both Staff and Student. The permission works at the field level (e.g. Student cannot edit some fields).
 - Basic file permission based on Role (Staff and Student).
 - Bulk adding attendances.
-
-## To-do
-- Tweak UI.
-- Detailed documentation. 
-- Deploy to the server. (Lots of things to do, e.g., set DEBUG = FALSE, Regenerate api key, securities, ...)
     
 # Note🔥 
 - This project is *not* meant to be used in production. It's the exploration of the capabilities of Django. 
