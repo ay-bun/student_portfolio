@@ -1,0 +1,161 @@
+{% extends "profile/base.html" %}
+{% load static %}
+
+{% block additional_body %}
+<div id="app" class="container">
+
+    <curriculum-html></curriculum-html>
+
+</div>
+
+<script type="text/x-template" id="curriculum-template">
+
+    <button type="button"
+            class="btn btn-primary m-2 fload-end"
+            data-bs-toggle="modal"
+            data-bs-target="#edit-info-modal"
+            @click="addClick()">
+         Add Curriculum
+    </button>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Curriculum Id
+                </th>
+                <th>
+                    Thai Name
+                </th>
+                <th>
+                    English Name
+                </th>
+                <th>
+                    Options
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="curr in curriculums">
+                <td>{% verbatim block %}{{curr.id}}{% endverbatim block %}</td>
+                <td>{% verbatim block %}{{curr.th_name}}{% endverbatim block %}</td>
+                <td>{% verbatim block %}{{curr.en_name}}{% endverbatim block %}</td>
+                <td>
+                    <button type="button"
+                        class="btn btn-light mr-1"
+                        data-bs-toggle="modal"
+                        data-bs-target="#edit-info-modal"
+                        @click="editClick(curr)">
+                            <i class="bi bi-pencil-square"></i>
+                    </button>
+
+                    <button type="button" @click="deleteClick(curr.id)"
+                        class="btn btn-light mr-1">
+                            <i class="bi bi-pencil-square"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="edit-info-modal" tabindex="-1"
+        aria-labelledby="edit-info-modal-label" aria-hidden="true">
+
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="edit-info-modal-label">{% verbatim block %}{{modalTitle}}{% endverbatim block %}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="d-flex flex-row bd-highlight mb-3">
+
+                        <div class="p-2 w-50 bd-highlight">
+                            <button  type="button" class="btn btn-primary m-2 fload-end" v-on:click="openNewWindow('/profile/curriculum-student/' + curriculum.id)">
+                                Show Students
+                            </button>
+
+                            <div class="input-group mb-3">
+                              <span class="input-group-text">Thai Name</span>
+                              <input type="text" class="form-control" v-model="curriculum.th_name">
+                            </div>
+
+                            <div v-if="!addingNewCurriculum" class="input-group mb-3">
+                              <span class="input-group-text">English Name</span>
+                              <input type="text" class="form-control" v-model="curriculum.en_name">
+                            </div>
+
+                            <div v-if="!addingNewCurriculum" class="input-group mb-3">
+                                <span class="input-group-text">Start Date</span>
+                                <input type="date" class="form-control" v-model="curriculum.start_date">
+                            </div>
+
+                            <div v-if="!addingNewCurriculum" class="input-group mb-3">
+                                <span class="input-group-text">End Date</span>
+                                <input type="date" class="form-control" v-model="curriculum.end_date">
+                            </div>
+
+                            <div v-if="!addingNewCurriculum" class="input-group mb-3">
+                                <span class="input-group-text">Info</span>
+                                <input type="text" class="form-control" v-model="curriculum.info">
+                            </div>
+
+                            <div v-if="!addingNewCurriculum" class="mb-3">
+                                <label for="formFile" class="form-label"><h3>Attachment file</h3></label>
+                                <p></p>
+                                <label id="attachment_filename" for="formFile" class="form-label"><a v-bind:href="this.curriculum.attachment_file"><h6>File url</h6></a></label>
+                                <input class="form-control" type="file" id="formFile" @change="onFileSelected">
+                            </div>
+
+                            <div v-if="!addingNewCurriculum" class="skillgroup">
+                                <h3>Skill Group</h3>
+                                <div class="form-row" v-for="(sg, index) in curriculum.skillgroups" :key="index">
+                                    <select v-model="sg.id" class="form-control sl">
+                                        <option v-for="e in skillgroupTable" v-bind:value="e.id">
+                                            {% verbatim block %}{{ e.name }}{% endverbatim block %}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                  <button @click="addSkillgroupClick()" type="button" class="btn btn-secondary">Add skillgroup</button>
+                                  <button @click="removeSkillgroupClick()" type="button" class="btn btn-danger">Remove skillgroup</button>
+                                </div>
+                            </div>
+
+                            <hr>
+
+
+                            <button id="createButton" type="button" @click="createClick()"
+                                v-if="addingNewCurriculum" class="btn btn-primary" >
+                                Create
+                            </button>
+
+                            <button id="updateButton" type="button" @click="updateClick()"
+                                v-else class="btn btn-primary">
+                                Update
+                            </button>
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</script>
+
+{% endblock additional_body %}
+
+{% block additional_script_in_body %}
+    <script src="{% static 'js/profile/curriculum.js' %}"></script>
+{% endblock additional_script_in_body%}

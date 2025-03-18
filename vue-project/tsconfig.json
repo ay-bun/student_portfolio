@@ -1,0 +1,29 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.config.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.vitest.json"
+    },
+    
+  ],
+
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "allowJs": true,
+    "types" : ["./vue.d.ts"],
+    
+  },
+  "vueCompilerOptions" : {
+    "target" : 2.7,
+    "extensions": [
+      ".vue"
+    ],
+  },
+  
+}

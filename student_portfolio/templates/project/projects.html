@@ -1,0 +1,203 @@
+{% extends "project/base.html" %}
+{% load static %}
+
+{% block additional_body %}
+
+<div id="app" class="container">
+
+    <project-html></project-html>
+
+</div>
+
+<script type="text/x-template" id="project-template">
+
+    <button type="button"
+            class="btn btn-primary m-2 fload-end"
+            data-bs-toggle="modal"
+            data-bs-target="#edit-info-modal"
+            @click="addClick()">
+         Propose Project
+    </button>
+
+    <button type="button" class="btn btn-primary m-2 fload-end" v-on:click="showApproved = true">
+         show approved
+     </button>
+    <button type="button" class="btn btn-primary m-2 fload-end" v-on:click="showApproved = false">
+         show unapproved
+     </button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Project Id
+                </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Start Date
+                </th>
+                <th>
+                    End Date
+                </th>
+                <th>
+                    Options
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="proj in projects">
+                <td v-if="showApproved && proj.approved || !showApproved && !proj.approved">{% verbatim block %}{{proj.id}}{% endverbatim block %}</td>
+                <td v-if="showApproved && proj.approved || !showApproved && !proj.approved">{% verbatim block %}{{proj.title}}{% endverbatim block %}</td>
+                <td v-if="showApproved && proj.approved || !showApproved && !proj.approved">{% verbatim block %}{{proj.start_date}}{% endverbatim block %}</td>
+                <td v-if="showApproved && proj.approved || !showApproved && !proj.approved">{% verbatim block %}{{proj.end_date}}{% endverbatim block %}</td>
+
+                <td v-if="showApproved && proj.approved || !showApproved && !proj.approved">
+                    <button v-if="user.is_staff || !showApproved" type="button"
+                    class="btn btn-light mr-1"
+                    data-bs-toggle="modal"
+                    data-bs-target="#edit-info-modal"
+                    @click="editClick(proj)">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+
+                    <button v-if="user.is_staff || !showApproved" type="button" @click="deleteClick(proj.id)"
+                    class="btn btn-light mr-1">
+                        <i class="bi bi-trash"></i>
+                    </button>
+
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <div class="modal fade" id="edit-info-modal" tabindex="-1"
+         aria-labelledby="ModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">{% verbatim block %}{{modalTitle}}{% endverbatim block %}</h5>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="d-flex flex-row bd-highlight mb-3">
+
+                    <div class="p-1 w-50 bd-highlight">
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Title</span>
+                            <input type="text" class="form-control" v-model="project.title">
+
+                        </div>
+
+                        <div v-if="!addingNewProject" class="input-group mb-3">
+                            <span class="input-group-text">Start Date</span>
+                            <input type="date" class="form-control" v-model="project.start_date">
+                        </div>
+
+                        <div v-if="!addingNewProject" class="input-group mb-3">
+                            <span class="input-group-text">End Date</span>
+                            <input type="date" class="form-control" v-model="project.end_date">
+                        </div>
+
+                        <div v-if="!addingNewProject" class="input-group mb-3">
+                            <span class="input-group-text">info</span>
+                            <input type="text" class="form-control" v-model="project.info">
+                        </div>
+
+
+                        <div v-if="!addingNewProject" class="skill">
+                            <h3>Skills</h3>
+                            <div class="form-row" v-for="(skill, index) in project.skills" :key="index">
+                                <select v-model="skill.id" class="form-control sl">
+                                    <option v-for="e in skillTable" v-bind:value="e.id">
+                                        {% verbatim block %}{{ e.title }}{% endverbatim block %}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                              <button v-on:click="addSkillClick()" type="button" class="btn btn-secondary">Add skill</button>
+                              <button v-on:click="removeSkillClick()" type="button" class="btn btn-danger">Remove skill</button>
+                            </div>
+                        </div>
+
+                        <div v-if="!addingNewProject" class="staff">
+                            <h3>Staffs</h3>
+                            <div class="form-row" v-for="(staff, index) in project.staffs" :key="index">
+                                <select v-model="staff.id" class="form-control sl">
+                                    <option v-for="e in staffTable" v-bind:value="e.user_id_fk">
+                                        {% verbatim block %}{{ e.firstname }} {{ e.lastname}}{% endverbatim block %}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                              <button @click="addStaffClick()" type="button" class="btn btn-secondary">Add staff</button>
+                              <button @click="removeStaffClick()" type="button" class="btn btn-danger">Remove staff</button>
+                            </div>
+                        </div>
+
+                        <div v-if="!addingNewProject" class="mb-3">
+                            <input v-bind:disabled="project.approved" type="checkbox" value="approved" v-model="checkboxes"/>
+                            <label>&nbsp;approved&nbsp;&nbsp;</label>
+                            <input type="checkbox" value="used_for_calculation" v-model="checkboxes"/>
+                            <label>&nbsp;Use for calculation</label>
+                        </div>
+
+<!--                        <p></p>-->
+                        <div v-if="!addingNewProject" class="input-group mb-3">
+                            <label ><h3>Attachment link</h3></label>
+                            <span class="input-group-text">Attachment Link</span>
+                            <input id="attachment_link_form" type="text" class="form-control" v-model="project.attachment_link">
+
+                        </div>
+
+                        <div v-if="!addingNewProject" class="mb-3">
+                            <label for="formFile" class="form-label"><h3>Attachment file</h3></label>
+                            <p></p>
+                            <label id="attachment_filename" for="formFile" class="form-label"><a v-bind:href="this.project.attachment_file"><h6>File url</h6></a></label>
+                            <input class="form-control" type="file" id="formFile" @change="onFileSelected">
+                        </div>
+
+<!--                        <End of inputs>-->
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button id="createButton" type="button" @click="createClick()"
+                    v-if="addingNewProject" class="btn btn-primary" >
+                    Create
+                </button>
+
+                <button id="updateButton" type="button" @click="updateClick()"
+                    v-else class="btn btn-primary">
+                    Update
+                </button>
+            </div>
+
+        </div>
+
+
+        </div>
+
+    </div>
+
+</script>
+{% endblock additional_body %}
+
+
+{% block additional_script_in_body %}
+    <script src="{% static 'js/project/projects.js' %}"></script>
+{% endblock additional_script_in_body%}

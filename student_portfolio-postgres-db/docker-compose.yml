@@ -1,0 +1,21 @@
+
+services: 
+
+  db:
+    image: postgres
+    environment: 
+
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 174:5432
+    volumes:
+#      - student_portfolio:/var/lib/student_portfolio/data
+        - ./database-data:/data/db
+volumes:
+  student_portfolio: #
+  
+
+
+
+

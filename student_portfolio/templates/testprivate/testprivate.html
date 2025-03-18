@@ -1,0 +1,147 @@
+{% extends "testprivate/base.html" %}
+{% load static %}
+
+{% block additional_body %}
+
+<div id="app" class="container">
+
+    <testprivate-html></testprivate-html>
+
+</div>
+
+<script type="text/x-template" id="testprivate-template">
+
+    <button type="button"
+            class="btn btn-primary m-2 fload-end"
+            data-bs-toggle="modal"
+            data-bs-target="#edit-info-modal"
+            @click="addClick()">
+         Create Item
+    </button>
+
+<!--    <button type="button" class="btn btn-primary m-2 fload-end" v-on:click="showApproved = true">-->
+<!--         show approved-->
+<!--     </button>-->
+<!--    <button type="button" class="btn btn-primary m-2 fload-end" v-on:click="showApproved = false">-->
+<!--         show unapproved-->
+<!--     </button>-->
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                     Id
+                </th>
+<!--                <th>-->
+<!--                    Title-->
+<!--                </th>-->
+<!--                <th>-->
+<!--                    Received-->
+<!--                </th>-->
+<!--                <th>-->
+<!--                    Options-->
+<!--                </th>-->
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="it in items">
+                <td >{% verbatim block %}{{it.id}}{% endverbatim block %}</td>
+
+
+                <td >
+                    <button type="button"
+                    class="btn btn-light mr-1"
+                    data-bs-toggle="modal"
+                    data-bs-target="#edit-info-modal"
+                    @click="editClick(it)">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+
+                    <button type="button" @click="deleteClick(it.id)"
+                        class="btn btn-light mr-1">
+                        <i class="bi bi-trash"></i>
+                    </button>
+
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <div class="modal fade" id="edit-info-modal" tabindex="-1"
+         aria-labelledby="ModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">{% verbatim block %}{{modalTitle}}{% endverbatim block %}</h5>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="d-flex flex-row bd-highlight mb-3">
+
+                    <div class="p-1 w-50 bd-highlight">
+
+                        <p></p>
+
+                        <!--Input fields : 🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩-->
+                        <form id="modal-form">
+                            <div v-if="!addingNewItem && modalActive" class="mb-3">
+                                <label for="formFile1" class="form-label"><h3>private_file_1</h3></label>
+                                <p></p>
+                                <label id="attachment_filename" for="formFile1" class="form-label"><a v-bind:href="this.item.private_file_1"><h6>File url</h6></a></label>
+                                <input  class="form-control" type="file" id="formFile1" @change="onFileSelected_1">
+                            </div>
+
+                            <div v-if="!addingNewItem && modalActive" class="mb-3">
+                                <label for="formFile2" class="form-label"><h3>private_file_2</h3></label>
+                                <p></p>
+                                <a v-if="this.item.private_file_2 != '' && this.item.private_file_2 != null" type="button" class="btn btn-primary" v-bind:href="this.item.private_file_2"> File URL </a>
+                                <button v-if="this.item.private_file_2 != '' && this.item.private_file_2 != null" type="button" class="btn btn-outline-danger" @click="removePrivate_file_2()"> Remove File </button>
+                                <input  v-if="!(this.item.private_file_2 != '' && this.item.private_file_2 != null)" class="form-control" type="file" id="formFile2" @change="onFileSelected_2">
+
+                            </div>
+
+
+
+                    <!--End input fields : 🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩-->
+                        </form>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button id="createButton" type="button" @click="createClick()"
+                    v-if="addingNewItem" class="btn btn-primary" >
+                    Create
+                </button>
+
+                <button v-if="!addingNewItem" id="updateButton" type="button" @click="updateClick()"
+                     class="btn btn-primary">
+                    Update
+                </button>
+            </div>
+
+        </div>
+
+
+        </div>
+
+    </div>
+
+</script>
+{% endblock additional_body %}
+
+
+{% block additional_script_in_body %}
+    <script src="{% static 'js/testprivate/testprivate.js' %}"></script>
+{% endblock additional_script_in_body%}

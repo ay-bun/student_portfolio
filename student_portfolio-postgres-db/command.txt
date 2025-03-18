@@ -1,0 +1,1 @@
+docker run -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres --name testpg -p 69:8000 -v d:\Temp-github-work\SE\docker-test:/var/lib/postgresql/data postgres

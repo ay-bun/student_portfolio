@@ -1,0 +1,10 @@
+{% extends 'base/base.html' %}
+
+{%  block additional_body %}
+    <body onload="alertLogout()">
+    <script>
+        function alertLogout() {
+        alert("{{ error_message }}");
+        }
+    </script>
+{% endblock additional_body %}

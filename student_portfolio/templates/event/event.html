@@ -1,0 +1,245 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+
+{% block additional_body %}
+    <div id="app" class="container">
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="/event" role="tab" aria-controls="home" aria-selected="true">Events</a>
+          </li>
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" id="profile-tab" data-toggle="tab" href="/event/eventRegisterRequest" role="tab" aria-controls="profile" aria-selected="false">Event register requests</a>-->
+<!--          </li>-->
+
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><event-html></event-html></div>
+<!--          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>-->
+
+        </div>
+
+    </div>
+
+
+    <script type="text/x-template" id="event-template">
+    <div>
+
+        <button type="button"
+            class="btn btn-primary m-2 fload-end"
+            data-bs-toggle="modal"
+            data-bs-target="#edit-info-modal"
+            @click="addClick()">
+         Add Event
+        </button>
+
+        <button type="button" class="btn btn-primary m-2 fload-end" v-on:click="showApproved = true">
+            show approved
+        </button>
+
+        <button type="button" class="btn btn-primary m-2 fload-end" v-on:click="showApproved = false">
+             show unapproved
+        </button>
+
+<table class="table table-striped">
+<thead>
+    <tr>
+        <th>
+            Event Id
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Options
+        </th>
+    </tr>
+</thead>
+<tbody>
+
+    <tr v-for="eve in events">
+        <td v-if="showApproved && eve.approved || !showApproved && !eve.approved">{% verbatim block %}{{eve.id}}{% endverbatim block %}</td>
+
+        <td v-if="showApproved && eve.approved || !showApproved && !eve.approved">{% verbatim block %}{{eve.title}}{% endverbatim block %}</td>
+        <td v-if="showApproved && eve.approved || !showApproved && !eve.approved">{% verbatim block %}{{eve.start_datetime}}{% endverbatim block %}</td>
+
+        <td v-if="showApproved && eve.approved || !showApproved && !eve.approved">
+
+            <button v-if="user.is_staff || !showApproved" type="button"
+                class="btn btn-light mr-1"
+                data-bs-toggle="modal"
+                data-bs-target="#edit-info-modal"
+                @click="editClick(eve)">
+                <i class="bi bi-pencil-square"></i>
+            </button>
+
+            <button v-if="user.is_staff || !showApproved" type="button" @click="deleteClick(eve.id)"
+                class="btn btn-light mr-1">
+                <i class="bi bi-trash"></i>
+            </button>
+
+        </td>
+    </tr>
+</tbody>
+
+</table>
+
+<div class="modal fade" id="edit-info-modal" tabindex="-1"
+    aria-labelledby="edit-info-modal-label" aria-hidden="true">
+<div class="modal-dialog modal-xl modal-dialog-centered">
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="edit-info-modal-label">{% verbatim block %}{{modalTitle}}{% endverbatim block %}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+        aria-label="Close"></button>
+    </div>
+
+    <div class="modal-body">
+    <div class="d-flex flex-row bd-highlight mb-3">
+        <div class="p-2 w-50 bd-highlight">
+
+            <!--
+            <div class="input-group mb-3">
+                <span class="input-group-text">Event Id</span>
+                <input type="text" class="form-control" v-model="eventId">
+            </div>
+            -->
+            <button v-if="!addingNewEvent && user.is_staff" type="button" class="btn btn-primary m-2 fload-end" v-on:click="openNewWindow('/event-attendance/' + event.id)">
+                Show Attendances
+            </button>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Title</span>
+                <input type="text" class="form-control" v-model="event.title">
+            </div>
+
+            <div v-if="!addingNewEvent" class="input-group mb-3">
+                <span class="input-group-text">Start</span>
+                <input type="datetime-local" class="form-control" v-model="event.start_datetime">
+            </div>
+
+            <div v-if="!addingNewEvent" class="input-group mb-3">
+                <span class="input-group-text">end</span>
+                <input type="datetime-local" class="form-control" v-model="event.end_datetime">
+            </div>
+
+<!--            <div v-if="!addingNewEvent" class="input-group mb-3">-->
+<!--                <span class="input-group-text">Main Staff Id</span>-->
+<!--                <select class="form-select" v-model="event.mainStaffId">-->
+<!--                    <option v-for="staff in staffs">-->
+<!--                        {% verbatim block %}{{staff.staffId}}{% endverbatim block %}-->
+<!--                    </option>-->
+<!--                </select>-->
+<!--            </div>-->
+
+
+            <div v-if="!addingNewEvent" class="input-group mb-3">
+                <span class="input-group-text">info</span>
+                <input type="text" class="form-control" v-model="event.info">
+            </div>
+
+
+
+                <div v-if="!addingNewEvent" class="skill">
+                    <h3>Skills</h3>
+                    <div class="form-row" v-for="(skill, index) in event.skills" :key="index">
+                        <select v-model="skill.id" class="form-control sl">
+                            <option v-for="e in skillTable" v-bind:value="e.id">
+                                {% verbatim block %}{{ e.title }}{% endverbatim block %}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                      <button @click="addSkillClick()" type="button" class="btn btn-secondary">Add skill</button>
+                      <button @click="removeSkillClick()" type="button" class="btn btn-danger">Remove skill</button>
+                    </div>
+                </div>
+
+                <div v-if="!addingNewEvent" class="staff">
+                    <h3>Staffs</h3>
+                    <div class="form-row" v-for="(staff, index) in event.staffs" :key="index">
+                        <select v-model="staff.id" class="form-control sl">
+                            <option v-for="e in staffTable" v-bind:value="e.user_id_fk">
+                                {% verbatim block %}{{ e.firstname }} {{ e.lastname}}{% endverbatim block %}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                      <button @click="addStaffClick()" type="button" class="btn btn-secondary">Add staff</button>
+                      <button @click="removeStaffClick()" type="button" class="btn btn-danger">Remove staff</button>
+                    </div>
+                </div>
+
+                <p></p>
+                <div v-if="!addingNewEvent && user.is_staff" class="mb-3">
+                    <input type="checkbox" value="approved" v-model="checkboxes"/>
+                    <label>&nbsp;approved&nbsp;&nbsp;</label>
+                    <input type="checkbox" value="used_for_calculation" v-model="checkboxes"/>
+                    <label>&nbsp;Use for calculation</label>
+                    <input type="checkbox" value="arranged_inside" v-model="checkboxes"/>
+                    <label>&nbsp;arranged inside</label>
+                </div>
+
+                <p></p>
+
+                <label v-if="!addingNewEvent"><h3>Attachment link</h3></label>
+                <div v-if="!addingNewEvent" class="input-group mb-3">
+                    <span class="input-group-text">Attachment Link</span>
+                    <input id="attachment_link_form" type="text" class="form-control" v-model="event.attachment_link">
+
+                </div>
+
+                <div v-if="!addingNewEvent" class="mb-3">
+                    <label for="formFile" class="form-label"><h3>Attachment file</h3></label>
+                    <p></p>
+                    <label id="attachment_filename" for="formFile" class="form-label"><a v-bind:href="this.event.attachment_file"><h6>File url</h6></a></label>
+                    <input class="form-control" type="file" id="formFile" @change="onFileSelected">
+                </div>
+<!--            v-if="this.event.attachment_file"-->
+
+
+
+              <hr>
+
+        </div>
+
+
+<!--        <div class="p-2 w-50 bd-highlight">-->
+<!--            <img-->
+<!--                :src="PhotoPath+'events/anonymous.png'" />-->
+<!--            &lt;!&ndash;<input class="m-2" type="file" @change="imageUpload">&ndash;&gt;-->
+<!--        </div>-->
+
+
+    </div>
+        <button id="createButton" type="button" @click="createClick()"
+        v-if="addingNewEvent" class="btn btn-primary" >
+        Create
+        </button>
+
+        <button id="updateButton" type="button" @click="updateClick()"
+        v-else class="btn btn-primary">
+        Update
+        </button>
+
+    </div>
+
+</div>
+</div>
+</div>
+
+
+</div>
+    </script>
+
+
+{% endblock %}
+
+{% block additional_script_in_body %}
+    <script src="{% static 'js/event/event.js' %}"></script>
+{% endblock additional_script_in_body%}

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+    <!-- CSS only 5.2.0-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>-->
+
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">-->
+
+
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js" integrity="sha512-LUKzDoJKOLqnxGWWIBM4lzRBlxcva2ZTztO8bTcWPmDSpkErWx0bSP4pdsjNH8kiHAUPaT06UXcb+vOEZH+HpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!--    <script src="https://unpkg.com/vue@3.2.37/dist/vue.global.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+<!--    <script src="https://unpkg.com/vue-router@4.1.3/dist/vue-router.global.js"></script>-->
+    <script src="/static/js/vue-vars/variables.js"></script>
+
+<!--    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+<!--    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>-->
+
+<!--    <script src="https://cdn.jsdelivr.net/npm/vue-search-select@3.1.0/dist/VueSearchSelect.js"></script>-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-search-select@3.1.0/dist/VueSearchSelect.css"/>-->
+
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-select/3.10.0/vue-select.js"></script>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vue-select/3.10.0/vue-select.css" integrity="sha512-HLz+b0Pyj+6RnAjTwAajDUOJfhEIfdLy91cHSph3ydMYt3UN6kp7h+b2ofodXNflk4CNyZe9HP8YAj8hYBiNSA==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
+<!--    <script src="https://unpkg.com/vue-select@latest"></script>-->
+<!--    <link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">-->
+    <script src="https://cdn.jsdelivr.net/npm/vue-multiselect@2.1.7/dist/vue-multiselect.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-multiselect@2.1.7/dist/vue-multiselect.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue-good-table@2.21.11/dist/vue-good-table.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-good-table@2.21.11/dist/vue-good-table.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js" integrity="sha512-K/oyQtMXpxI4+K0W7H25UopjM8pzq0yrVdFdG21Fh5dBe91I40pDd9A4lzNlHPHBIP2cwZuoxaUSX0GJSObvGA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" integrity="sha512-MQXduO8IQnJVq1qmySpN87QQkiR1bZHtorbJBD0tzy7/0U9+YIC93QWHeGTEoojMVHWWNkoCp8V6OzVSYrX0oQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!--    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>-->
+<!--    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>-->
+<!--    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />-->
+    {% block additional_scripts %}
+
+    {% endblock additional_scripts %}
+</head>
+<body>
+    <h3 class="d-flex justify-content-center">
+            Student Profile Management System
+    </h3>
+
+    {% block vertical_navbar %}
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+          <span class="fs-4"></span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <a href="/home" class="nav-link text-white">
+<!--            <a href="/home" class="nav-link active" aria-current="page">-->
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/profile" class="nav-link text-white" >
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+              Profile
+            </a>
+          </li>
+          <li>
+            <a href="/project" class="nav-link text-white">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+              Projects
+            </a>
+          </li>
+          <li>
+            <a href="/event" class="nav-link text-white">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+              Events
+            </a>
+          </li>
+          <li>
+            <a href="/award" class="nav-link text-white">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+              Awards
+            </a>
+          </li>
+
+          <li>
+            <a href="/testprivate" class="nav-link text-white">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+              TestPrivate
+            </a>
+          </li>
+        </ul>
+        <hr>
+
+        {% if user.is_authenticated %}
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOoAAADXCAMAAAAjrj0PAAABPlBMVEX+/v4AAAD29vbTn2VzQy3////6+vp2RS/Xomd2RC5wQCsODg4jIyPAwMCRkZGeelDd3d3x8fFpaWkzIRtCKR90RjEcEg5hYWHU1NTJyclUMyU2NjaLi4uEhISgoKBuPCbNn2wwJBrXpW7YzMZTU1PQml3Gk2JHNydPMSNAQECAYkRqMxbj2NSte1BAKiGthVl1dXWPcEwjHBhgOimjhnuQXz+xmpCdbEc5LB8oGRN/TjFdTDnmzbCoqKi7iFmGZFV+V0VHR0fy5dVwWDzevZbUq3zAraUeHh7+9uzv5+O+lGXlyq3t2cEaAACuiWA7IBQuLCplSj9hKQDFoXyohG1nYVlfQi6AXzlaGQBQJxCXZD50WDtCMR1zPiBVNyk/MygrFQu7m3hVPiKDeW+GcFeTcmW4morTwLEsFABdT0lyDJ8qAAAUs0lEQVR4nO2dC1fbuLbHA7bj2CmUR0JLoDiEkqFleHRamiYF2gnlUWgHZs4t97Q97cyZc+bOzPf/Ald762HLlh3HsZ1A8+9aXY4jJP0iWdrSluTC5DejwrAzkJ/GqLdRY9TbqDHqbdQY9TbqG0MtfgNiqIXbL+PbQS2MUW+jxqi3UWPU26gx6m3UGPU2qj9UQyn4Iss89s5WIGeqUH2hqkkj489DMfPSD6oxO3HHr9OfX3MNq2iN55D6lZSrOUVe+kQNqmbZtk7+OU6uqJ60jGdfHEdfkHJ1LxtUncpOCaJvGc8cXa+miAoPQA/UfB9a97lUogbzERfVmCWaCUO1iPRZrslcWGECZRKTe/bFskwf6mQwHzFRjSLGcNxoNN7ITR38pHazoWl1kc7DPFCNtV8cx/kL0rtb0jSSsUa9gf/b1Wr1Kdx/MADqAiFaV6JqWslFVT0oqctY2yS1aZujCpWaJEMWoi4Pjip9AagOQdWGgWoGUbW0UEuKUrXtAGp2DZQb9dom6eUYqldaOqhNon/c53rb7XbP/qezt9dB1BdcH2Z4iNn0Wb8HQdwnJOG9a5Lc6pMdSXYaqBPEUHBqovT+d51Iw18SnxKuuyLEQdqoxuQ/Nzc3P0Lc1yK9l3KfUE0FVcSCeiI9I27DkCnqpsWycMRT96GWU0M1h42q54RqWlKpyu2BCjXNtgnjIo2RXaOo6gpcrloskwn71cIuaIOoMk/UhqhePuHaAgnUnZeo65e/Lx8QpdU2GRDZwadWq7UH0R+J1H+VUSGTPz8guT1IhEobebSB2ybRhtwSPCU/tePWYKEj+HIxLVRMqhFs/BQaxAbGtBgqeWD9qMQOdlFdZkS9nxZqGcqsweN+Eo0a/PtkqFbuqMYwUN+T+htAtci9hr99Ym3j/RTaJowCk2rwJ6RHBR4QdXKFtAvLl5VKZXujUtloi5jnya3LI6LPpNFouQ3U3cdE/1leXn4wWNtkrDwgkUBk0MGVziGl7xSEFchaGqj0t70PUW2TXsesKBIj7ZO95/Y7oH/B/QFRH0EcdVZlSj+FFaboDAdGxVQXKSppmxSoZXLfg4q436WA+iOi8hjDUUmbMUZNjPoXdK4K1IWqaep7kgFVekFRA01TzGEehnJRIdqICmxSw1U1EdI/6uwi0fL7drtdqdVqX+U5nQlyu736HdE1GWLtHUIjsnOX6MPDew/l9I2ph/fuPexpXxjTEOwJxAGk9Rck7l8VlBskMzVMHfKn6uD699ngr3yAsRNj02wrkgXNW8SA2iqxcmjgLyKjrsCtqZ6ouxDsnLdI9ZDksL8z4eJOGrP7nvQZKnlgw1Ar8NRu8ae28cNgqDs8onBU8pgy1JCYskO1skCNKFWCWs0M9dKsVqthqNvku1BUrGMMlVU3VSOFt1xUnPrMHXVyZnZ29sFEuTyx8ZTLl3aZfPm10+mYzQAqacVPT8vLMF+9Wz49BSvZMJZOyT253E+qr1+/3jknwp+rvUCUNyr9vZch5ppFPRlWVZH+BgwDoBn2oU7Bp2mI4wFcIeqpVO4UlYzD4c9prxVaoNmiYk4oqsl8NkpUKxKVXHHUghqV/Tl9CMrDRmXuKXWpmjIqfy4DqAYvVf7A4oUHFTqsaFQrc9SvVSb/swqqVG376SFUPkRFb5IRRF2E+1KIQhHcSydfzI6FqPVmvX4ejQpJwcVVBqiU955IjDNXvwZ/bx2/gE9LMuqFVq/X0XQ8JxfncPFIhHgsJgVfRFHir43tFc1SFqhQyTyovCr7UXXv0+xDfbNOajcaes0S6zV/7BcVmguKGmlVp1mqegiqFYF6QVBLFJU3sv2jWi5qRFbTRAWHskUGxzU5J08t1h8xVKJFikrkQS0JVCIPKpi/vVCZKzlb1N2lR0xfuS2xscCFDQkaGeAzqsKtpZn792cOJogtMH1GBBW49HL1xWqblioJ8QhCrAjUc3A5rQYByyIVTABycJUpqscLKDLRxjbINKvU/UmLVqdtEx1Oviff2S30bol5GbxyeIgJjup3Pgltm6wVNOfh42zP0W9qC++YqwNRuVVBM+Gi6tybMg9jgZbC5eNI/q9I1HneBFiYykzPQX4mqNVwVN1F3VKj6nFRzVFANWGYDHOKHlS4JVDbIaXacGxmCMQpVUyFpPNb3qjUgQX6sMGFrixsmyrwEVHhFo7bVRUYnU9t7v9Soc5zVUQqH0iac73n6dJbJOu2T4siXxvwq7sjWqzYWBJ6CCq0T02bVIivYahVk8nt0hbjzcdlsB7YiyrPU/BnmK5eU6GCcIlKOCpvB7yosfKVMaqZENUMRTVzRPUs5HE/hqIGK7DN5IRWYIe7+h6rFnUEK3DP+amEqMbZxT5TF4zVg4DzyZhZ4foAriw02Y7AtwSknS2uQ0WJgnerZUPrBZ6mz1ut1hY6B7Yrfl3+LVLp3fgmRO2uc70zuA0sJ+YW+wPxy+NELqzR6wTWTvg7Gxs7S9KJmFgDsMN6iuY1uedOADyQa1c2qCxfoahuWC+qhgYCQVU/oQxV94v2zfJAkKHGz3T+qDagNm4EKtYWbwUmehgXFSowaYwSlipvjFzU3SxRjbM3RBddrn34+Ofi4uJUyGJnigperNoeeqtAEaThqG2u+UWmqZiNUVJUKEt35egFfOxGNAwUlZi/londS0hjFANVqNxvY5QUVfOuB8YZhPVuRJIclRsN0ZwxUfslTIi6PhCq0xNVGwVUrDKsAvNb+6VGQ+sDlS73CaNENyyiOkR2COpE5qhGEZxHVzAbdCZQp2GGKMoA9aN2iPbCWOHLDlTzjtZsNrcEqw0zR2hxzczOzAywpqKvlaNlqTWgs/t9oGLGQzsbk8NBiNKhW5UtS6fzgcUkjVFC1FPZ/ouLasZC7XhDeFGhFiPqgPt34qDCj1kMtglxUWv9lSpDtYOoOZRqEZ7QcvJS7RArx6bzpaYVXqpsdkLv1OvN+paMigPB2Unmu8oM1TgmGanj4T39oj53qlXb9cRFmb+oupgxnPfWelLU3LuVbQtsHIOBXwjUnjioX6iDtNSIh6qpUT1+kGz7VSxVrRhII1apSq7knqiNsFLNDRU6/nBUdWOBt5/j1iqwDShqTyNYzO7Pm5Y1BNR/g4NIgbpytbR0dTBDpPhyFu4/A7MA/vqnR0tEP5GryJFNHcyFrxD0V+bTyhl1KaRTM4QrOTigoquSngiH4Sx3YP0QVYt9TseKmTfqo4j+OxT1gKJ6FsnSvnk1Bip3JY9Rs0HFOhpWgV3U4GrfICqrwHFQh1GBje67brd79Pv19e/FkBDTc7u7cwdTRJGoGCIe6hIEXc4d9Q2MUHEkGWxkWRDQHciFtIrGjyrUG9VVzqg8F2GoGGxpjHqjUKHy4qRvyLOqQsU6feNQn38muni3v78fFYmMaswsT09P/wf8UTs3CHUOop/pNST2oaLT8Yi7oG4aanQkalSW/UFQ2arqPFF7RJIZ6nAqMDHsPB5y2ZVA+1V+KwaqvEm9FIoqxnGuazVb1H+DGwpI0T21DyZqF67EbLexCAbOPSJwj/lRP4N7Clf0wEUVN1TB/qrPe1xNgQohcG1AG66Eq9GstNvt95BIzMUASVF3YC1g0Si4s/vGO+41Z+GgPCHoHQXqHimTKqLChjmcD8Rtttt8WYQjUDWHb2qb55NqFJUubM5yxpChQq4RVWM+G4LKXMluUBy3XKlQyQibofKpz7vSk+g0xU6EkAkXPjmanHO4qNtB1JBptKxRsZWhqJAJ+HzWXGcn85AKrFGvuWilCn7URoOuXN4DbxM2KXAEjIt66UGFwPDfUFCNd8dEsHNppwtT3vDpDVx04eoCrvbhClf0vIErGbUC00q4mwKO82lCROd4haUHn1pi6qgjBJ/s4LRSxqj7zNIvrZ9BmTVIMR7TtRDa+voF9Zoz/yrOFNcpqsFRw9bBslhLJXkCP1I5oWrr6GaELcHHBlvhQlC9rmQ6/+8rVTMSlcCOJiqUquaWqiaXquFFNYxYpZoMNZvOxthv1ut0I3u3UCyewXFyx2fFYqGrNRraBblVoKhw5aKSyIo4sSJv6vSLRF1voSOmJyaGou4pOM8vAxPCmIbY6QlrhK1+Ru6dATrtbPAmV0Nk/1y27BQnMjUdy7s9ZcM/hx8oUFwgsAORZ2UYelFBnn7VoP2qqlLGQSX596AGfTMq1HNwccFFFuZ+BGohFFWLh+pZ4FqLhwpWTL2cEyqaEJomTIiYqIHBS9OxbT1uBbZ0y8ofFeyILlwco/UQUoGbC6urq+h1OwUn03/P+Yl7LipYCtd861PZ3b+tIEVjYpvEuAA7sHNDXRd7ncSFSqSdpodxuNurJ9jDxn8OokNb2vmECnY99DiRu8RexHYvN9T4ohYuHDenRNW861dioIrnfYyaH6rb6IgmSI3qVSgqX/ZrqlAxWKJFo6mgltw1vngFx8r8d44ITtYzDua48LwZFIQSgxprg2+G+g1uVWtc2Epdv3z58ndxpknjGg4MhEmXZGfoDYy6x0+S1WBYyg47kmfbhAOLlp7DdiLorBirbjm6a7jn6WhBPmqNSHhgh4Fq06OQNQ16yJBznQzjijMsBKxeT88aQA2kh6jJjpUeAVT9BqBi9dqz+Xody1ajYgU+FRBi+5NCKtR1qR8fEupha8ujFtREBaqxdkIktjrh2YC9VROob2CjVmO4qKWWg6fJEHX4picV6h+bm5u/TPL2SXWgvSu3yHWGSvdBHA8b1WbL6ggqe9iUqLD67q3wSEajep9cjsrX/o1RM0bFFslbgWVUqV/94xdSgWOiOpteQb/KKjBvm3JHLR2CV2kLDR+4EuNrGyydn4W19Oczoj/XiPhsnzE5FaU1Sf8Hcf8DPGGwpqhbHwrqloNH97HOxmOpg3cQB95oAz/fdJxfvpcdlH2InqIFBQqTlsaQUG32KKEJ4bN+PKjkMd38PuFghB4tZUNjgFPRtxjVc2CYQC0NowITQQVuKFC/hqH2OQCjqHDaMK3Ax/xwv3zNfXA0tWCaKDjjF4ZqFF6/evXqj/jZRNTNP/EAH/B/rYJgSXWybRlJUUvYr0otUm9U0kg5r/pFXaOdDRmvQrTloQzNSy210yUCldTHBKjc/zW8CZdeqIYxCCrtbCiqVKqZoTa4jyqoRiu421QXJ94NVqrU1oJ+1VOqmaEWYLeUu0BALtAth7WNmtwC0yOGgPcSrsAjkwx1jTzXmydGsVh4A6mgIZxVBfauhQjUYkRV9asUVbyEYBBU8pcnkAVYpwv9qpEdKqYYihpiQrBS5a+WGAz1ywmus1jnJkReqKWeqBbf+eRBtRDVYG/zpJ1NnN6CV2C3VA12zlwOqO7qlCbbH2234MpFRScT9PLbpqWbtfLCQrlC7nycgn1UGB2aEG9BvTJsrJGwr08g6AVYD99DHLAD61EOqLDZHQ4lKR2KXe+2tP8dp8B+gJOZ6dw9tE3u3D2eqgp6Cy+Peta7WLGzgZEumhC41SevhXcw9clQlb0pQ5U2T5syKsb4dtPSnd6oGNY1IX6EOPJaeIeoHETl/42DagCq3g+qlS8qupYsYu92Gl7XkhKVljtbEqp7UZn6QzUtagPngDotXEsw9/EJZljClhuJUtWafJ3vp+s2P9zvgE+pnDh9oH6s1T6uwGLjXZKNe5mievbEwRtW6o56LONDdd2PLV06Gw1VjY+6Iv5oJvmAJi4qpkhfJqOxhThh8qBKAwIf6kJC1MEwx6ghqFiBQzDhBGREXWj0Qp2oWiZBlaVIFDQkVHBFhQxQdX0DPEpHjx8fPVaU6sY2UwUCHEFQ92A+0HRwAsWYmSZfzF2Sv1rIHdWOapHKvNzlgQEdvFvc42RBAN8iLlTw7TN0q+4l/GnMI3FTRI3yANM1rMEhvG+ewioFVyFGosKa4hFDrcZD1Ucf9Yq2JqTt6QOV9qtBVNV7o+ReEz8MCRX3RsGCm8uQolWgggPrU6ujB1CbG7WA7sFZxnxRszE7B8cp8xU9uaJ63jLYB+qWE2zG0Gp0TNPyLYHAPxdjH3RL/ibWaeWKCukX+0ZVNNcUNTAsUqGKfTY3E9UqqS2u6kiiCvWLCu8DYKUqyRZ/PsmnoIaMWijA5M79Cf6uhopp9YVahfdG0fOWmpJwagpnpV6BjFFAhd98VnQP21K/EwMV7SlqIEvLZd3uCMt4JFCBNgxVYS1FoIYbGVZ15FH7K1U/quVFNUYO9a+qpOSon6De0iAgeExcVLwV87UQ6aK6J5fQszx8SoJKw+JmXjci3sTTVd5ThjflvFDdlTgZoIr3hS2IustQB55VSoIqkHNFTYMzZVTv0FyNqj7cb7RRp+4s+XX1E3/PpHBgeVDRhDgXIcJQYUNVe6RQlcvnMKslyYHlYeWHhrYVzbDnjAHYUaWPFGpQ1ErGydHDkDkoRFWc4SIfp+Bq9FGjvTq3CBUdWGAAuSNv/tophio3TXT1aRAV3gdyOdKowoFly3MqtkCFEO6hLU342Amiwp8//RucUqr3didSyqhlvjeKroVwJd4EuwCbVcQx7cQwZPPLMipdILOSglPKVdqooqMIojJXBxzk4qKKkY2MSl/ItJIaJihHVL0PVGv0USd4GxRAtdjeqAU4dGnP9cD6UE18GxE7TmFUUQvTRLg3CnY+mU+3ZYFXCssdrq7Fnqs9GVW8Y+rvFRJbss2bYUoN1TMl03ZffSc2u8nvOW7bQrqEKrSbaouEShG1wCdL2sE5VB/IfHCJTAA1pSy5GqMmFEV9b2LLYrH3dQqXug8V3jXMnBUQRg4xN/KouDdq+q95v37DxTwfiQlU4ahWDb6A16KY+ELPDX6uHx6FnJqN5CpdVDq4W5wICpdobZKCFK+atRB6Q7yoG/oZLPwf02+RUCmjgkJQ6Xpg9626dNzivpNcWMnJdtH0Vt6o/lK9raiwPvYjNlww2YCvx67BvAOebyPmKZZuEOrkTFB4aDSueoZPBxP8pefo7JrgV+8x7M1BVU48yV+oyh2VUYuEygK1p+iiDiVqhqmOUbPVN4QqDpAOPNG3DzV0x3mWaQ4JdRj6dlCNbweVl+o3ojHqbdQY9Tbq/wFizbLBlRIY3gAAAABJRU5ErkJggg==" alt="" width="32" height="32" class="rounded-circle me-2">
+            <strong>{{ user.username }}</strong>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/logout">Sign out</a></li>
+          </ul>
+        </div>
+        {% endif %}
+
+      </div>
+    {% endblock vertical_navbar %}
+
+    {% block horizontal_navbar %}
+    {% endblock horizontal_navbar %}
+
+    {% block additional_body %}
+
+    {% endblock additional_body %}
+
+    {% block additional_script_in_body %}
+
+
+<!--    'vue-multiselect': window.VueMultiselect.default,-->
+    {% endblock additional_script_in_body%}
+</body>
+</html>

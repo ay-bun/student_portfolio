@@ -1,0 +1,217 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block additional_body %}
+    {{ event_id|json_script:"event_id-data" }}
+
+    <div id="app" class="container">
+
+
+        <!-- <h5 class="d-flex justify-content-center">
+            Student Profile Management System
+        </h5> -->
+
+        <event-attendance-html></event-attendance-html>
+    </div>
+
+    {% verbatim event-template %}
+        <script type="text/x-template" id="event-attendance-template">
+        <div>
+
+            <button type="button"
+                class="btn btn-primary m-2 fload-end"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                @click="addClick()">
+                    Add Student to The Event
+            </button>
+
+            <button type="button"
+            class="btn btn-primary m-2 fload-end"
+
+            @click="syncByUniversityIdClick()">
+             Sync by university id
+            </button>
+
+            <button type="button"
+                class="btn btn-primary m-2 fload-end"
+                data-bs-toggle="modal"
+                data-bs-target="#addByFileModal">
+                    Add attendees by file
+            </button>
+
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        University Id
+                    </th>
+                    <th>
+                        Firstname
+                    </th>
+                    <th>
+                        Middlename
+                    </th>
+                    <th>
+                        Lastname
+                    </th>
+                    <th>
+                        Synced
+                    </th>
+                    <th>
+                        Options
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="att in studentAttendances">
+                    <td>{{att.university_id}}</td>
+                    <td>{{att.firstname}}</td>
+                    <td>{{att.middlename}}</td>
+                    <td>{{att.lastname}}</td>
+                    <td>{{att.synced}}</td>
+                    <td>
+                        <button type="button"
+                        class="btn btn-light mr-1"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        @click="editClick(att)">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button"
+                        @click="deleteClick(att.id)"
+                        class="btn btn-light mr-1">
+                            <i class="bi bi-trash"></i>
+                        </button>
+
+                    </td>
+                </tr>
+            </tbody>
+
+            </table>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                <div class="d-flex flex-row bd-highlight mb-3">
+                    <div class="p-2 w-50 bd-highlight">
+
+<!--                        <div class="input-group mb-3" >-->
+<!--                            <span class="input-group-text">Student Id</span>-->
+<!--                            <input v-bind:disabled="!addingNewStudent" type="text" class="form-control" v-model="studentAttendEvent.student_id">-->
+<!--                        </div>-->
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">University Id</span>
+                            <input type="text" class="form-control" v-model="studentAttendEvent.university_id">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Firstname</span>
+                            <input type="text" class="form-control" v-model="studentAttendEvent.firstname">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Middlename</span>
+                            <input type="text" class="form-control" v-model="studentAttendEvent.middlename">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Lastname</span>
+                            <input type="text" class="form-control" v-model="studentAttendEvent.lastname">
+                        </div>
+
+                        <div v-if="!addingNewStudent" class="mb-3">
+                            <input type="checkbox" value="used_for_calculation" v-model="checkboxes"/>
+                            <label>&nbsp;Use for calculation</label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                    <button type="button" @click="createClick()"
+                    v-if="addingNewStudent" class="btn btn-primary">
+                    Create
+                    </button>
+                    <button type="button" @click="updateClick()"
+                    v-else class="btn btn-primary">
+                    Update
+                    </button>
+
+                </div>
+
+            </div>
+            </div>
+            </div>
+
+
+
+            <div v-if="addByFileModalActive" class="modal fade" id="addByFileModal" tabindex="-1"
+                aria-labelledby="addByFileModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addByFileModalLabel">Add By CSV File</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                <div class="d-flex flex-row bd-highlight mb-3">
+                    <div class="p-2 w-50 bd-highlight">
+                        <div class="mb-3">
+                            <label for="csvFormFile" class="form-label"><h3>Attachment file</h3></label>
+                            <p></p>
+<!--                            <label id="attachment_filename" for="formFile" class="form-label"><a v-bind:href="this.event.attachment_file"><h6>File url</h6></a></label>-->
+                            <input class="form-control" type="file" id="csvFormFile" @change="onCSVFileSelected" accept=".csv">
+<!--                            <label id="csvFormFileLabel" class="custom-file-label" for="csvFormFile" data-browse="Choose File">No file chosen</label>-->
+
+                        </div>
+
+                    </div>
+
+                </div>
+<!--                    <button type="button" @click="createClick()"-->
+<!--                    v-if="addingNewStudent" class="btn btn-primary">-->
+<!--                    Create-->
+<!--                    </button>-->
+                    <button type="button" @click="bulkAddClick()"
+                        class="btn btn-primary">
+                        Process
+                    </button>
+
+                </div>
+
+            </div>
+            </div>
+            </div>
+
+
+
+            </div>
+
+<!--            Model Script-->
+
+        </script>
+
+<!--        <script>-->
+<!--            $('#addByFileModal').on('hidden.bs.modal', function () {-->
+<!--                $(this).find('#csvFormFile').trigger('reset');-->
+<!--            })-->
+<!--        </script>-->
+    {% endverbatim event-template %}
+
+{% endblock additional_body %}
+
+{% block additional_script_in_body %}
+    <script src="{% static 'js/event/event_attendance.js' %}"></script>
+{% endblock additional_script_in_body%}

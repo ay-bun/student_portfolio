@@ -1,0 +1,45 @@
+{% extends "profile/base.html" %}
+{% load static %}
+
+{% block additional_body %}
+<div id="app" class="container">
+
+    <event-attendance-html></event-attendance-html>
+
+</div>
+
+<script type="text/x-template" id="event-attendance-template">
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Event Id
+                </th>
+                <th>
+                    Event name
+                </th>
+                <th>
+                    Date
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="event in events">
+                <td>{% verbatim block %}{{event.id}}{% endverbatim block %}</td>
+                <td>{% verbatim block %}{{event.title}}{% endverbatim block %}</td>
+                <td>{% verbatim block %}{{event.start_datetime}}{% endverbatim block %}</td>
+
+            </tr>
+        </tbody>
+    </table>
+
+</script>
+
+{% endblock additional_body %}
+
+{% block additional_script_in_body %}
+    <script src="{% static 'js/profile/event_attendance.js' %}"></script>
+{% endblock additional_script_in_body%}

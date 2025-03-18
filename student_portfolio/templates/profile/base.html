@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+
+{% block horizontal_navbar %}
+<div id="horizontal-navbar" class="container">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-item nav-link active" href="/profile">info</a>
+                  <a class="nav-item nav-link active" href="/profile/event-attendance">Event Attendance</a>
+                  <a v-if="user.is_student" class="nav-item nav-link active" href="/profile/charts">Skill Charts </a>
+                  <a v-if="user.is_staff" class="nav-item nav-link active" href="/profile/curriculum">Curriculum</a>
+                  <a v-if="user.is_staff" class="nav-item nav-link active" href="/profile/skillgroup">Skillgroup</a>
+                  <a v-if="user.is_staff" class="nav-item nav-link active" href="/profile/edit-student-profile">Edit Student Profile</a>
+
+                </div>
+          </div>
+    </nav>
+
+
+</div>
+
+<script src="{% static 'js/profile/base.js' %}"></script>
+{% endblock horizontal_navbar %}

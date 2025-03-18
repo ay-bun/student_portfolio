@@ -1,0 +1,79 @@
+{% extends "profile/base.html" %}
+{% load static %}
+
+{% block additional_scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+{% endblock additional_scripts %}
+
+{% block additional_body %}
+    <div id="app" class="container">
+
+        <chart-html></chart-html>
+
+    </div>
+
+<!--    This will substitute <char-html></char-html>.-->
+    <script type="text/x-template" id="chart-template">
+        <div class="container">
+            <div class="row">
+
+                 <div v-for="index in max_n_groups"  class="chart-container" style="position: relative; height:20vh; width:20vw">
+                    <canvas :id="'chart-' + index" width="50" height="50"></canvas>
+
+
+<!--                        <button v-if="user.is_staff" :id = "'chart-input-button' + index"-->
+<!--                                type="button"-->
+<!--                                class="btn btn-primary m-2 fload-end"-->
+<!--                                data-bs-toggle="modal"-->
+<!--                                data-bs-target="#edit-goal-point-modal"-->
+<!--                                @click="editGoalPoints(index)">-->
+<!--                         Edit Points-->
+<!--                         </button>-->
+
+                </div>
+            </div>
+        </div>
+
+<!--        <div class="modal fade" id="edit-goal-point-modal" tabindex="-1"-->
+<!--            aria-labelledby="ModalLabel" aria-hidden="true">-->
+
+<!--            <div class="modal-dialog modal-lg modal-dialog-centered">-->
+
+<!--                <div class="modal-content">-->
+
+<!--                    <div class="modal-header">-->
+<!--                        <h5 class="modal-title" id="ModalLabel">{% verbatim block %}{{modalTitle}}{% endverbatim block %}</h5>-->
+
+<!--                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                    </div>-->
+
+<!--                    <div class="modal-body">-->
+<!--                        <div id="chart-inputs" >-->
+<!--                            <div class="form-row" v-for="(label, index) in skillLabels">-->
+
+<!--                                <div v-if="skillTable[index].type === editingSkillType" class="input-group mb-3">-->
+<!--                                    <span class="input-group-text">{% verbatim block %}{{ label }}{% endverbatim block %}</span>-->
+<!--                                    <input type="number" class="form-control" v-model="skillFreq[index]">-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="form-group">-->
+<!--                                <button @click="submitChartDataClick()" type="button" class="btn btn-secondary">Submit</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+
+<!--            </div>-->
+
+<!--        </div>-->
+
+    </script>
+
+{% endblock additional_body %}
+
+
+{% block additional_script_in_body %}
+    <script src="{% static 'js/profile/charts.js' %}"></script>
+{% endblock additional_script_in_body%}
